@@ -1,222 +1,261 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  User, 
-  Phone, 
-  MapPin, 
-  Award, 
-  BookOpen, 
-  ChefHat, 
-  Instagram, 
-  Dumbbell, 
-  Languages,
-  Calendar,
-  ChevronRight,
-  ExternalLink,
-  Briefcase // Menambahkan ikon yang sebelumnya kurang
-} from 'lucide-react';
-
-const App = () => {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
-
-  const data = {
-    nama: "Muhammad Fajar",
-    tahunLahir: 2007,
-    phone: "085861602704",
-    hobby: "Olahraga",
-    alamat: "Bojongmalaka, Kec. Baleendah",
-    sosmed: "fjarrzzz",
-    pendidikan: [
-      { sekolah: "SD GBI", tahun: "2019", deskripsi: "Lulus dengan predikat baik." },
-      { sekolah: "SMP PLUS AL-AITAM", tahun: "2023", deskripsi: "Aktif dalam kegiatan sekolah dan pengembangan diri." }
-    ],
-    keahlian: ["Memasak (Culinary Arts)", "Disiplin Tinggi", "Kerja Tim", "Ketangkasan Fisik"],
-    organisasi: [
-      { nama: "KARATE", tahun: "2021 - 2022", peran: "Anggota Aktif", deskripsi: "Melatih kedisiplinan, fokus, dan kekuatan fisik melalui seni bela diri." }
-    ],
-    sertifikat: [
-      { nama: "TAHFIDZ", tahun: "2013", lembaga: "Lembaga Tahfidz Al-Qur'an" }
-    ],
-    bahasa: ["Indonesia (Native)"]
-  };
-
-  const Section = ({ icon: Icon, title, children, delay }) => (
-    <div 
-      className={`bg-white p-6 rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 transition-all duration-1000 transform ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}
-      style={{ transitionDelay: `${delay}ms` }}
-    >
-      <div className="flex items-center gap-3 mb-6">
-        <div className="p-3 bg-indigo-600 rounded-2xl text-white shadow-lg shadow-indigo-200">
-          <Icon size={22} />
-        </div>
-        <h2 className="text-2xl font-bold text-slate-800 tracking-tight">{title}</h2>
-      </div>
-      {children}
-    </div>
-  );
-
-  return (
-    <div className="min-h-screen bg-[#F8FAFC] font-sans text-slate-700 selection:bg-indigo-100 selection:text-indigo-900 pb-20">
-      {/* Dekorasi Background */}
-      <div className="fixed top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 z-50"></div>
-      <div className="absolute top-0 right-0 -z-10 w-[500px] h-[500px] bg-indigo-50 rounded-full blur-3xl opacity-60 -mr-48 -mt-48"></div>
-      <div className="absolute bottom-0 left-0 -z-10 w-[400px] h-[400px] bg-purple-50 rounded-full blur-3xl opacity-60 -ml-32 -mb-32"></div>
-
-      <div className="max-w-5xl mx-auto px-4 pt-12 md:pt-20">
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Muhammad Fajar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/framer-motion/10.12.16/framer-motion.umd.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
         
-        {/* Header Section */}
-        <header className={`flex flex-col md:flex-row items-center md:items-start gap-10 mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="relative group">
-            <div className="absolute -inset-2 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-[2.5rem] blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
-            <div className="relative w-56 h-72 md:w-64 md:h-80 rounded-[2rem] overflow-hidden border-[6px] border-white shadow-2xl rotate-1 group-hover:rotate-0 transition-transform duration-500 bg-slate-200">
-              <img 
-                src="Gemini_Generated_Image_lzjxi4lzjxi4lzjx.png" 
-                alt="Muhammad Fajar" 
-                className="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-700"
-              />
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0f172a;
+            color: #f1f5f9;
+            scroll-behavior: smooth;
+        }
+
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1.5rem;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .profile-img-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+        }
+
+        .profile-img-container::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #38bdf8, #818cf8);
+            z-index: -1;
+            animation: pulse 3s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 0.5; }
+        }
+
+        .skill-tag {
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            background: rgba(56, 189, 248, 0.2);
+            transform: translateY(-2px);
+        }
+
+        section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease-out;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <!-- Header / Hero Section -->
+    <header class="min-h-screen flex items-center justify-center pt-20 px-4">
+        <div class="max-w-4xl w-full text-center">
+            <div class="profile-img-container mb-8">
+                <img src="Gemini_Generated_Image_lzjxi4lzjxi4lzjx.png" alt="Muhammad Fajar" class="w-full h-full object-cover rounded-full border-4 border-slate-800" onerror="this.src='https://via.placeholder.com/200?text=Fajar'">
             </div>
-          </div>
-          
-          <div className="flex-1 text-center md:text-left pt-4">
-            <div className="inline-block px-4 py-1.5 bg-indigo-50 text-indigo-600 rounded-full text-sm font-bold mb-4 tracking-wide uppercase">
-              Curriculum Vitae 2024
-            </div>
-            <h1 className="text-5xl md:text-7xl font-black text-slate-900 mb-4 tracking-tighter">
-              {data.nama.split(' ')[0]} <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">{data.nama.split(' ')[1]}</span>
+            <h1 class="text-5xl md:text-7xl font-bold mb-4">
+                Halo, Saya <span class="gradient-text">Muhammad Fajar</span>
             </h1>
-            
-            <p className="text-slate-500 text-lg md:text-xl max-w-2xl mb-8 leading-relaxed">
-              Halo! Saya adalah seorang individu yang berdedikasi tinggi dengan minat besar pada bidang <span className="text-slate-900 font-semibold underline decoration-indigo-300 decoration-2 underline-offset-4">Olahraga</span> dan <span className="text-slate-900 font-semibold underline decoration-purple-300 decoration-2 underline-offset-4">Seni Kuliner</span>.
+            <p class="text-xl text-slate-400 mb-8 max-w-2xl mx-auto">
+                Pelajar yang berdedikasi dengan minat kuat dalam bidang kuliner dan olahraga. Berdomisili di Baleendah.
             </p>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="flex items-center gap-3 p-3 bg-white rounded-2xl shadow-sm border border-slate-100">
-                <div className="p-2 bg-slate-50 rounded-lg text-slate-400"><MapPin size={18}/></div>
-                <span className="text-sm font-medium">{data.alamat}</span>
-              </div>
-              <div className="flex items-center gap-3 p-3 bg-white rounded-2xl shadow-sm border border-slate-100">
-                <div className="p-2 bg-slate-50 rounded-lg text-slate-400"><Phone size={18}/></div>
-                <span className="text-sm font-medium">{data.phone}</span>
-              </div>
-              <div className="flex items-center gap-3 p-3 bg-white rounded-2xl shadow-sm border border-slate-100">
-                <div className="p-2 bg-slate-50 rounded-lg text-slate-400"><Instagram size={18}/></div>
-                <span className="text-sm font-medium">@{data.sosmed}</span>
-              </div>
-              <div className="flex items-center gap-3 p-3 bg-white rounded-2xl shadow-sm border border-slate-100">
-                <div className="p-2 bg-slate-50 rounded-lg text-slate-400"><Calendar size={18}/></div>
-                <span className="text-sm font-medium">Lahir Tahun {data.tahunLahir}</span>
-              </div>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#tentang" class="bg-sky-500 hover:bg-sky-600 text-white px-8 py-3 rounded-full font-semibold transition-all shadow-lg shadow-sky-500/20">Tentang Saya</a>
+                <a href="#kontak" class="bg-slate-800 hover:bg-slate-700 text-white px-8 py-3 rounded-full font-semibold transition-all border border-slate-700">Hubungi Saya</a>
             </div>
-          </div>
-        </header>
-
-        {/* Info Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          
-          {/* Kolom Kiri */}
-          <div className="md:col-span-2 space-y-8">
-            <Section icon={User} title="Tentang Saya" delay={200}>
-              <p className="text-slate-600 leading-relaxed text-lg">
-                Saya adalah pribadi yang disiplin, jujur, dan memiliki semangat belajar yang kuat. Memiliki latar belakang pendidikan yang stabil dan pengalaman organisasi yang membentuk karakter kepemimpinan serta kerja sama tim saya. Saya percaya bahwa kombinasi antara keahlian praktis dan kedisiplinan fisik adalah kunci kesuksesan.
-              </p>
-            </Section>
-
-            <Section icon={BookOpen} title="Riwayat Pendidikan" delay={400}>
-              <div className="relative border-l-2 border-indigo-100 ml-3 space-y-8 pb-2">
-                {data.pendidikan.map((edu, i) => (
-                  <div key={i} className="relative pl-8 group">
-                    <div className="absolute w-4 h-4 bg-white border-2 border-indigo-600 rounded-full -left-[9px] top-1.5 group-hover:scale-125 transition-transform duration-300"></div>
-                    <div className="flex justify-between items-start mb-1">
-                      <h3 className="text-xl font-bold text-slate-800">{edu.sekolah}</h3>
-                      <span className="px-3 py-1 bg-indigo-50 text-indigo-600 rounded-lg text-xs font-bold">{edu.tahun}</span>
-                    </div>
-                    <p className="text-slate-500">{edu.deskripsi}</p>
-                  </div>
-                ))}
-              </div>
-            </Section>
-
-            <Section icon={Briefcase} title="Pengalaman Organisasi" delay={600}>
-              {data.organisasi.map((org, i) => (
-                <div key={i} className="group p-5 bg-slate-50 rounded-2xl hover:bg-indigo-50/50 transition-colors duration-300 border border-transparent hover:border-indigo-100">
-                  <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 mb-3">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 bg-indigo-600 rounded-full"></span>
-                      <h3 className="text-xl font-bold text-slate-800">{org.nama}</h3>
-                    </div>
-                    <span className="text-sm font-bold text-indigo-600 bg-white px-3 py-1 rounded-full shadow-sm">{org.tahun}</span>
-                  </div>
-                  <p className="font-semibold text-slate-700 mb-2 uppercase text-xs tracking-wider">{org.peran}</p>
-                  <p className="text-slate-600 leading-relaxed">{org.deskripsi}</p>
-                </div>
-              ))}
-            </Section>
-          </div>
-
-          {/* Kolom Kanan */}
-          <div className="space-y-8">
-            <Section icon={ChefHat} title="Keahlian Utama" delay={300}>
-              <div className="flex flex-col gap-3">
-                {data.keahlian.map((skill, i) => (
-                  <div key={i} className="flex items-center justify-between group">
-                    <span className="text-slate-700 font-medium group-hover:text-indigo-600 transition-colors">{skill}</span>
-                    <ChevronRight size={14} className="text-slate-300 group-hover:text-indigo-600 transform group-hover:translate-x-1 transition-all" />
-                  </div>
-                ))}
-              </div>
-            </Section>
-
-            <Section icon={Award} title="Sertifikasi" delay={500}>
-              {data.sertifikat.map((cert, i) => (
-                <div key={i} className="flex items-start gap-4 p-4 border border-slate-100 rounded-2xl bg-gradient-to-br from-white to-slate-50">
-                  <div className="mt-1"><Award className="text-amber-500" size={20}/></div>
-                  <div>
-                    <h4 className="font-bold text-slate-800 leading-tight mb-1">{cert.nama}</h4>
-                    <p className="text-xs text-slate-500 mb-1">{cert.lembaga}</p>
-                    <p className="text-xs font-bold text-amber-600">Lulus {cert.tahun}</p>
-                  </div>
-                </div>
-              ))}
-            </Section>
-
-            <Section icon={Dumbbell} title="Hobby & Minat" delay={700}>
-               <div className="flex items-center gap-4 p-4 bg-slate-900 rounded-2xl text-white">
-                 <div className="p-2 bg-indigo-500/20 rounded-xl"><Dumbbell size={24}/></div>
-                 <div>
-                   <p className="text-xs text-slate-400">Fokus Saat Ini</p>
-                   <p className="font-bold text-lg">{data.hobby}</p>
-                 </div>
-               </div>
-            </Section>
-
-            <Section icon={Languages} title="Bahasa" delay={800}>
-              <div className="flex flex-wrap gap-2">
-                {data.bahasa.map((lang, i) => (
-                  <span key={i} className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-xl text-sm font-bold shadow-sm">
-                    <span className="w-2 h-2 bg-emerald-500 rounded-full"></span>
-                    {lang}
-                  </span>
-                ))}
-              </div>
-            </Section>
-          </div>
         </div>
+    </header>
 
-        {/* Footer */}
-        <footer className={`mt-20 text-center transition-all duration-1000 delay-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
-          <div className="h-px w-full bg-gradient-to-r from-transparent via-slate-200 to-transparent mb-8"></div>
-          <p className="text-slate-400 text-sm mb-2">Dibuat dengan dedikasi oleh Muhammad Fajar</p>
-          <div className="flex justify-center gap-6">
-            <a href="#" className="text-slate-400 hover:text-indigo-600 transition-colors"><Instagram size={20}/></a>
-            <a href="#" className="text-slate-400 hover:text-indigo-600 transition-colors"><ExternalLink size={20}/></a>
-          </div>
-        </footer>
-      </div>
-    </div>
-  );
-};
+    <main class="max-w-5xl mx-auto px-4 pb-20 space-y-32">
 
-export default App;
+        <!-- Tentang Diri -->
+        <section id="tentang" class="scroll-mt-24">
+            <div class="glass-card p-8 md:p-12">
+                <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+                    <i class="fas fa-user-circle text-sky-400"></i> Tentang Diri
+                </h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <div class="flex justify-between border-b border-slate-700 pb-2">
+                            <span class="text-slate-400">Tahun Lahir</span>
+                            <span class="font-medium">2007</span>
+                        </div>
+                        <div class="flex justify-between border-b border-slate-700 pb-2">
+                            <span class="text-slate-400">Hobby</span>
+                            <span class="font-medium">Olahraga</span>
+                        </div>
+                        <div class="flex justify-between border-b border-slate-700 pb-2">
+                            <span class="text-slate-400">Bahasa</span>
+                            <span class="font-medium">Indonesia</span>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4">
+                            <i class="fas fa-map-marker-alt text-sky-400 mt-1"></i>
+                            <div>
+                                <p class="text-slate-400 text-sm">Alamat</p>
+                                <p>Bojongmalaka kec, Baleendah</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <i class="fas fa-certificate text-sky-400 mt-1"></i>
+                            <div>
+                                <p class="text-slate-400 text-sm">Sertifikat Utama</p>
+                                <p>Tahfidz Al-Qur'an</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pendidikan & Pengalaman -->
+        <section id="edukasi" class="scroll-mt-24">
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Pendidikan -->
+                <div class="glass-card p-8">
+                    <h2 class="text-2xl font-bold mb-8 flex items-center gap-3">
+                        <i class="fas fa-graduation-cap text-sky-400"></i> Pendidikan
+                    </h2>
+                    <div class="space-y-8 relative before:absolute before:left-3 before:top-2 before:bottom-2 before:w-0.5 before:bg-slate-700">
+                        <div class="relative pl-10">
+                            <div class="absolute left-0 top-1.5 w-6 h-6 rounded-full bg-sky-500 border-4 border-slate-900"></div>
+                            <h3 class="font-bold text-lg">SMA KP BALEENDAH</h3>
+                            <p class="text-sky-400 text-sm">Lulus 2026 (Target)</p>
+                        </div>
+                        <div class="relative pl-10">
+                            <div class="absolute left-0 top-1.5 w-6 h-6 rounded-full bg-slate-600 border-4 border-slate-900"></div>
+                            <h3 class="font-bold text-lg">SMP PLUS AL-AITAAM</h3>
+                            <p class="text-slate-400 text-sm">Lulus 2023</p>
+                        </div>
+                        <div class="relative pl-10">
+                            <div class="absolute left-0 top-1.5 w-6 h-6 rounded-full bg-slate-600 border-4 border-slate-900"></div>
+                            <h3 class="font-bold text-lg">SD GBI</h3>
+                            <p class="text-slate-400 text-sm">Lulus 2019</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Keahlian & Organisasi -->
+                <div class="space-y-8">
+                    <div class="glass-card p-8">
+                        <h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                            <i class="fas fa-tools text-sky-400"></i> Keahlian
+                        </h2>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="skill-tag px-6 py-2 rounded-full font-medium">Memasak</span>
+                            <span class="skill-tag px-6 py-2 rounded-full font-medium">Olahraga</span>
+                            <span class="skill-tag px-6 py-2 rounded-full font-medium">Kedisiplinan</span>
+                        </div>
+                    </div>
+                    <div class="glass-card p-8">
+                        <h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                            <i class="fas fa-users text-sky-400"></i> Organisasi
+                        </h2>
+                        <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
+                            <h3 class="font-bold">KARATE</h3>
+                            <p class="text-slate-400 text-sm">2021 - 2022</p>
+                            <p class="text-sm mt-2 text-sky-300 italic">Melatih fisik, mental, dan kedisiplinan diri.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Kontak -->
+        <section id="kontak" class="scroll-mt-24">
+            <div class="glass-card p-8 md:p-12 text-center">
+                <h2 class="text-3xl font-bold mb-4">Mari Terhubung!</h2>
+                <p class="text-slate-400 mb-10">Silakan hubungi saya melalui platform di bawah ini.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <a href="tel:+6285861602704" class="p-6 rounded-2xl bg-slate-800/50 hover:bg-sky-500/10 border border-slate-700 hover:border-sky-500/50 transition-all group">
+                        <i class="fas fa-phone text-3xl mb-4 text-sky-400 group-hover:scale-110 transition-transform"></i>
+                        <p class="text-sm text-slate-400">Telepon / WA</p>
+                        <p class="font-semibold">+62 858-6160-2704</p>
+                    </a>
+                    <a href="https://instagram.com/fjarrzzz" target="_blank" class="p-6 rounded-2xl bg-slate-800/50 hover:bg-pink-500/10 border border-slate-700 hover:border-pink-500/50 transition-all group">
+                        <i class="fab fa-instagram text-3xl mb-4 text-pink-400 group-hover:scale-110 transition-transform"></i>
+                        <p class="text-sm text-slate-400">Instagram</p>
+                        <p class="font-semibold">@fjarrzzz</p>
+                    </a>
+                    <div class="p-6 rounded-2xl bg-slate-800/50 border border-slate-700">
+                        <i class="fas fa-envelope text-3xl mb-4 text-indigo-400"></i>
+                        <p class="text-sm text-slate-400">Sosial Media</p>
+                        <p class="font-semibold">fjarrzzz</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="py-10 text-center border-t border-slate-800 text-slate-500 text-sm">
+        <p>&copy; 2024 Muhammad Fajar. Dibuat dengan semangat.</p>
+    </footer>
+
+    <script>
+        // Animasi Scroll
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Efek smooth hover pada kartu
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    </script>
+</body>
+</html>
